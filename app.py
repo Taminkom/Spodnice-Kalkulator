@@ -9,38 +9,33 @@ def oblicz_promien_calosci(promien_talii, dlugosc):
 
 def main():
     # Dodanie stylizacji z obrazkiem w tle
-    st.markdown(
-        """
-        <style>
-        body {
-            background: url('https://i.imgur.com/zZdjC1x.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-        .stApp {
-            background-color: rgba(255, 255, 255, 0.85);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            margin: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .stRadio > div {
-            flex-direction: row;
-        }
-        .stButton > button {
-            background-color: #ff69b4;
-            color: white;
-            border-radius: 10px;
-            padding: 10px;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+    page_bg_img = f'''
+    <style>
+    .stApp {{
+        background-image: url("https://i.imgur.com/zZdjC1x.jpg");
+        background-size: cover;
+        background-position: center;
+    }}
+    .stContainer {{
+        background-color: rgba(255, 255, 255, 0.85);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin: auto;
+    }}
+    .stRadio > div {{
+        flex-direction: row;
+    }}
+    .stButton > button {{
+        background-color: #ff69b4;
+        color: white;
+        border-radius: 10px;
+        padding: 10px;
+    }}
+    </style>
+    '''
+    st.markdown(page_bg_img, unsafe_allow_html=True)
     
     st.title("👗 Kalkulator Spódnic 👗")
     st.write("Wybierz rodzaj spódnicy i podaj swoje wymiary, a my obliczymy potrzebne wartości!")
