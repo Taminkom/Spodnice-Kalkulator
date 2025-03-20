@@ -1,5 +1,6 @@
 import streamlit as st
 import math
+import base64
 
 def oblicz_promien_talii(obwod_talii, podzial):
     return (obwod_talii + 0.5) / (2 * math.pi * podzial)
@@ -7,35 +8,22 @@ def oblicz_promien_talii(obwod_talii, podzial):
 def oblicz_promien_calosci(promien_talii, dlugosc):
     return promien_talii + dlugosc
 
-def main():
-    # Dodanie stylizacji z obrazkiem w tle
+def set_background(image_file):
+    with open(image_file, "rb") as image:
+        encoded_string = base64.b64encode(image.read()).decode()
     page_bg_img = f'''
     <style>
     .stApp {{
-        background-image: url("https://i.imgur.com/zZdjC1x.jpg");
+        background-image: url("data:image/png;base64,{encoded_string}");
         background-size: cover;
         background-position: center;
-    }}
-    .stContainer {{
-        background-color: rgba(255, 255, 255, 0.85);
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        max-width: 800px;
-        margin: auto;
-    }}
-    .stRadio > div {{
-        flex-direction: row;
-    }}
-    .stButton > button {{
-        background-color: #ff69b4;
-        color: white;
-        border-radius: 10px;
-        padding: 10px;
     }}
     </style>
     '''
     st.markdown(page_bg_img, unsafe_allow_html=True)
+
+def main():
+    set_background("konsola.png")
     
     st.title("👗 Kalkulator Spódnic 👗")
     st.write("Wybierz rodzaj spódnicy i podaj swoje wymiary, a my obliczymy potrzebne wartości!")
