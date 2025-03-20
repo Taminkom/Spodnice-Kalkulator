@@ -8,18 +8,25 @@ def oblicz_promien_calosci(promien_talii, dlugosc):
     return promien_talii + dlugosc
 
 def main():
-    # Dodanie stylizacji
+    # Dodanie stylizacji z obrazkiem w tle
     st.markdown(
         """
         <style>
         body {
-            background-color: #f7f3e9;
+            background: url('https://i.imgur.com/zZdjC1x.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
         .stApp {
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.85);
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         .stRadio > div {
             flex-direction: row;
@@ -73,9 +80,12 @@ def main():
             st.markdown(f"🔵 **Długość klinów:** `{dlugosc:.2f} cm`  ")
             st.markdown(f"🟢 **Głębokość bioder:** `{glebokosc_bioder:.2f} cm`  ")
         
-        st.markdown("""
-        <span style='color:red; font-weight:bold;'>❗ Pamiętaj o dodaniu zapasów na szwy i podwinięcia! ❤️</span>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <span style='color:red; font-weight:bold;'>❗ Pamiętaj o dodaniu zapasów na szwy i podwinięcia! ❤️</span>
+            """,
+            unsafe_allow_html=True
+        )
         
         if st.button("Oblicz kolejną spódnicę 🔄"):
             st.experimental_rerun()
