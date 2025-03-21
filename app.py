@@ -24,13 +24,6 @@ def set_background(image_file):
         color: #00FF00;
         white-space: pre-line;
         font-size: 18px;
-        position: absolute;
-        top: 25%;
-        left: 28%;
-        width: 45%;
-        height: 40%;
-        overflow: hidden;
-        text-align: left;
         background-color: black;
         padding: 10px;
         border-radius: 5px;
@@ -56,21 +49,21 @@ def main():
     time.sleep(1)
     
     type_writer_effect("Jaką spódnicę chcesz uszyć?\n1. Spódnica z koła\n2. Spódnica z połowy koła\n3. Spódnica z klinów\n")
-    wybor = st.text_input("Wpisz numer spódnicy (1, 2, 3):").strip()
+    wybor = st.text_input("").strip()
     
     if wybor in ["1", "2", "3"]:
         type_writer_effect("Podaj obwód talii (cm): ")
-        obwod_talii = st.text_input("Obwód talii:")
+        obwod_talii = st.text_input("Talia:").strip()
         type_writer_effect("Podaj długość spódnicy (cm): ")
-        dlugosc = st.text_input("Długość spódnicy:")
+        dlugosc = st.text_input("Długość:").strip()
         
         if wybor == "3":
             type_writer_effect("Podaj obwód bioder (cm): ")
-            obwod_bioder = st.text_input("Obwód bioder:")
+            obwod_bioder = st.text_input("Biodra:").strip()
             type_writer_effect("Podaj wzrost (cm): ")
-            wzrost = st.text_input("Wzrost:")
+            wzrost = st.text_input("Wzrost:").strip()
             type_writer_effect("Podaj liczbę klinów: ")
-            liczba_klinow = st.text_input("Liczba klinów:")
+            liczba_klinow = st.text_input("Kliny:").strip()
         
         if st.button("Oblicz"):
             type_writer_effect("\nObliczanie...\n")
