@@ -25,11 +25,12 @@ def set_background(image_file):
         white-space: pre-line;
         font-size: 18px;
         position: absolute;
-        top: 25%;
-        left: 20%;
-        width: 60%;
+        top: 20%;
+        left: 23%;
+        width: 54%;
         height: 50%;
         overflow: hidden;
+        text-align: left;
     }}
     </style>
     '''
@@ -46,53 +47,59 @@ def type_writer_effect(text):
 def main():
     set_background("konsola.png")
     
-    type_writer_effect("Kalkulator Spódnic - Retro Styl\n")
-    type_writer_effect("Wybierz rodzaj spódnicy i podaj swoje wymiary, a my obliczymy potrzebne wartości!\n")
+    type_writer_effect("SYSTEM BOOTING...\n")
+    time.sleep(1)
+    type_writer_effect("WELCOME TO RETRO SKIRT CALCULATOR\n")
+    time.sleep(1)
     
-    wybor = st.selectbox("Wybierz rodzaj spódnicy:", ["Spódnica z pełnego koła", "Spódnica z połowy koła", "Spódnica z klinów"])
+    type_writer_effect("Select skirt type:\n- Full Circle\n- Half Circle\n- Panel Skirt\n")
+    wybor = st.text_input("Enter your choice:").strip().lower()
     
-    if wybor:
-        obwod_talii = st.text_input("Podaj obwód talii (cm):")
-        dlugosc = st.text_input("Podaj długość spódnicy (cm):")
+    if wybor in ["full circle", "half circle", "panel skirt"]:
+        type_writer_effect("Enter your waist circumference (cm): ")
+        obwod_talii = st.text_input("Waist circumference:")
+        type_writer_effect("Enter skirt length (cm): ")
+        dlugosc = st.text_input("Skirt length:")
         
-        obwod_bioder = None
-        wzrost = None
-        liczba_klinow = None
+        if wybor == "panel skirt":
+            type_writer_effect("Enter your hip circumference (cm): ")
+            obwod_bioder = st.text_input("Hip circumference:")
+            type_writer_effect("Enter your height (cm): ")
+            wzrost = st.text_input("Height:")
+            type_writer_effect("Enter number of panels: ")
+            liczba_klinow = st.text_input("Number of panels:")
         
-        if wybor == "Spódnica z klinów":
-            obwod_bioder = st.text_input("Podaj obwód bioder (cm):")
-            wzrost = st.text_input("Podaj swój wzrost (cm):")
-            liczba_klinow = st.text_input("Podaj liczbę klinów:")
-        
-        if st.button("Oblicz!"):
-            type_writer_effect("\nDla podanych wymiarów wyniki są następujące:\n")
+        if st.button("Calculate"):
+            type_writer_effect("\nCalculating...\n")
+            time.sleep(1)
+            type_writer_effect("\nResults:\n")
             
-            if wybor in ["Spódnica z pełnego koła", "Spódnica z połowy koła"]:
-                podzial = 1 if wybor == "Spódnica z pełnego koła" else 0.5
+            if wybor in ["full circle", "half circle"]:
+                podzial = 1 if wybor == "full circle" else 0.5
                 promien_talii = oblicz_promien_talii(float(obwod_talii), podzial)
                 promien_calosci = oblicz_promien_calosci(promien_talii, float(dlugosc))
                 
-                type_writer_effect(f"Promień otworu na talię: {promien_talii:.2f} cm")
-                type_writer_effect(f"Promień całej spódnicy: {promien_calosci:.2f} cm")
+                type_writer_effect(f"Waist radius: {promien_talii:.2f} cm\n")
+                type_writer_effect(f"Skirt radius: {promien_calosci:.2f} cm\n")
                 
-            elif wybor == "Spódnica z klinów" and liczba_klinow:
+            elif wybor == "panel skirt" and liczba_klinow:
                 szerokosc_talii_klina = float(obwod_talii) / int(liczba_klinow)
                 szerokosc_bioder_klina = (float(obwod_bioder) + 1) / int(liczba_klinow)
                 glebokosc_bioder = (float(wzrost) / 10) + 4
                 
-                type_writer_effect(f"Szerokość klina w talii: {szerokosc_talii_klina:.2f} cm")
-                type_writer_effect(f"Szerokość klina w biodrach: {szerokosc_bioder_klina:.2f} cm")
-                type_writer_effect(f"Długość klinów: {float(dlugosc):.2f} cm")
-                type_writer_effect(f"Głębokość bioder: {glebokosc_bioder:.2f} cm")
+                type_writer_effect(f"Panel width at waist: {szerokosc_talii_klina:.2f} cm\n")
+                type_writer_effect(f"Panel width at hips: {szerokosc_bioder_klina:.2f} cm\n")
+                type_writer_effect(f"Panel length: {float(dlugosc):.2f} cm\n")
+                type_writer_effect(f"Hip depth: {glebokosc_bioder:.2f} cm\n")
             
             st.markdown(
                 """
-                <span style='color:red; font-weight:bold;'>❗ Pamiętaj o dodaniu zapasów na szwy i podwinięcia! ❗</span>
+                <span style='color:red; font-weight:bold;'>❗ Remember to add seam allowances! ❗</span>
                 """,
                 unsafe_allow_html=True
             )
             
-            if st.button("Oblicz kolejną spódnicę"):
+            if st.button("Calculate another skirt"):
                 st.experimental_rerun()
 
 if __name__ == "__main__":
