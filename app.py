@@ -24,9 +24,9 @@ def set_background(image_file):
         color: #00FF00;
         white-space: pre-line;
         font-size: 18px;
-        background-color: black;
-        padding: 10px;
-        border-radius: 5px;
+    }}
+    .stTextInput {{
+        width: 75% !important;
     }}
     </style>
     '''
@@ -49,54 +49,61 @@ def main():
     time.sleep(1)
     
     type_writer_effect("Jaką spódnicę chcesz uszyć?\n1. Spódnica z koła\n2. Spódnica z połowy koła\n3. Spódnica z klinów\n")
-    wybor = st.text_input("").strip()
+    wybor = st.text_input("Wpisz numer (1, 2, 3):").strip()
     
     if wybor in ["1", "2", "3"]:
         type_writer_effect("Podaj obwód talii (cm): ")
         obwod_talii = st.text_input("Talia:").strip()
-        type_writer_effect("Podaj długość spódnicy (cm): ")
-        dlugosc = st.text_input("Długość:").strip()
         
-        if wybor == "3":
-            type_writer_effect("Podaj obwód bioder (cm): ")
-            obwod_bioder = st.text_input("Biodra:").strip()
-            type_writer_effect("Podaj wzrost (cm): ")
-            wzrost = st.text_input("Wzrost:").strip()
-            type_writer_effect("Podaj liczbę klinów: ")
-            liczba_klinow = st.text_input("Kliny:").strip()
-        
-        if st.button("Oblicz"):
-            type_writer_effect("\nObliczanie...\n")
-            time.sleep(1)
-            type_writer_effect("\nWyniki:\n")
+        if obwod_talii:
+            type_writer_effect("Podaj długość spódnicy (cm): ")
+            dlugosc = st.text_input("Długość:").strip()
             
-            if wybor in ["1", "2"]:
-                podzial = 1 if wybor == "1" else 0.5
-                promien_talii = oblicz_promien_talii(float(obwod_talii), podzial)
-                promien_calosci = oblicz_promien_calosci(promien_talii, float(dlugosc))
+            if dlugosc:
+                if wybor == "3":
+                    type_writer_effect("Podaj obwód bioder (cm): ")
+                    obwod_bioder = st.text_input("Biodra:").strip()
+                    
+                    if obwod_bioder:
+                        type_writer_effect("Podaj wzrost (cm): ")
+                        wzrost = st.text_input("Wzrost:").strip()
+                        
+                        if wzrost:
+                            type_writer_effect("Podaj liczbę klinów: ")
+                            liczba_klinow = st.text_input("Kliny:").strip()
                 
-                type_writer_effect(f"Promień talii: {promien_talii:.2f} cm\n")
-                type_writer_effect(f"Promień spódnicy: {promien_calosci:.2f} cm\n")
-                
-            elif wybor == "3" and liczba_klinow:
-                szerokosc_talii_klina = float(obwod_talii) / int(liczba_klinow)
-                szerokosc_bioder_klina = (float(obwod_bioder) + 1) / int(liczba_klinow)
-                glebokosc_bioder = (float(wzrost) / 10) + 4
-                
-                type_writer_effect(f"Szerokość klina w talii: {szerokosc_talii_klina:.2f} cm\n")
-                type_writer_effect(f"Szerokość klina w biodrach: {szerokosc_bioder_klina:.2f} cm\n")
-                type_writer_effect(f"Długość klina: {float(dlugosc):.2f} cm\n")
-                type_writer_effect(f"Głębokość bioder: {glebokosc_bioder:.2f} cm\n")
-            
-            st.markdown(
-                """
-                <span style='color:red; font-weight:bold;'>❗ Pamiętaj, aby dodać zapasy na szwy! ❗</span>
-                """,
-                unsafe_allow_html=True
-            )
-            
-            if st.button("Oblicz inną spódnicę"):
-                st.experimental_rerun()
+                if st.button("Oblicz"):
+                    type_writer_effect("\nObliczanie...\n")
+                    time.sleep(1)
+                    type_writer_effect("\nWyniki:\n")
+                    
+                    if wybor in ["1", "2"]:
+                        podzial = 1 if wybor == "1" else 0.5
+                        promien_talii = oblicz_promien_talii(float(obwod_talii), podzial)
+                        promien_calosci = oblicz_promien_calosci(promien_talii, float(dlugosc))
+                        
+                        type_writer_effect(f"Promień talii: {promien_talii:.2f} cm\n")
+                        type_writer_effect(f"Promień spódnicy: {promien_calosci:.2f} cm\n")
+                        
+                    elif wybor == "3" and liczba_klinow:
+                        szerokosc_talii_klina = float(obwod_talii) / int(liczba_klinow)
+                        szerokosc_bioder_klina = (float(obwod_bioder) + 1) / int(liczba_klinow)
+                        glebokosc_bioder = (float(wzrost) / 10) + 4
+                        
+                        type_writer_effect(f"Szerokość klina w talii: {szerokosc_talii_klina:.2f} cm\n")
+                        type_writer_effect(f"Szerokość klina w biodrach: {szerokosc_bioder_klina:.2f} cm\n")
+                        type_writer_effect(f"Długość klina: {float(dlugosc):.2f} cm\n")
+                        type_writer_effect(f"Głębokość bioder: {glebokosc_bioder:.2f} cm\n")
+                    
+                    st.markdown(
+                        """
+                        <span style='color:red; font-weight:bold;'>❗ Pamiętaj, aby dodać zapasy na szwy! ❗</span>
+                        """,
+                        unsafe_allow_html=True
+                    )
+                    
+                    if st.button("Oblicz inną spódnicę"):
+                        st.experimental_rerun()
 
 if __name__ == "__main__":
     main()
