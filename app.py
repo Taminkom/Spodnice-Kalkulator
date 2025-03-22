@@ -62,8 +62,7 @@ def main():
     time.sleep(1)
     
     # Pytanie o wybór spódnicy
-    type_writer_effect("Jaką spódnicę chcesz uszyć?\n1. Spódnica z koła\n2. Spódnica z połowy koła\n3. Spódnica z klinów\n")
-    wybor = st.text_input("Wpisz numer (1, 2, 3):").strip()
+    wybor = st.text_input("Jaką spódnicę chcesz uszyć? Wpisz numer (1 - Spódnica z koła, 2 - Spódnica z połowy koła, 3 - Spódnica z klinów):").strip()
     
     if wybor in ["1", "2", "3"]:
         type_writer_effect("Podaj obwód talii (cm): ")
