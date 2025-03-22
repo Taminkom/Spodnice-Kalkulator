@@ -58,13 +58,20 @@ def main():
     
     type_writer_effect("SYSTEM BOOTING...\n")
     time.sleep(1)
-    type_writer_effect("WELCOME TO RETRO SKIRT CALCULATOR\n")
-    time.sleep(1)
     
-    # Pytanie o wybór spódnicy
-    wybor = st.text_input("Jaką spódnicę chcesz uszyć? Wpisz numer (1 - Spódnica z koła, 2 - Spódnica z połowy koła, 3 - Spódnica z klinów):").strip()
+    # Zmieniamy pytanie na wstępne (dzięki temu pytanie o rodzaj spódnicy nie pojawi się po odpowiedzi)
+    if 'wybor' not in st.session_state:
+        st.session_state.wybor = None
     
-    if wybor in ["1", "2", "3"]:
+    if st.session_state.wybor is None:
+        type_writer_effect("Jaką spódnicę chcesz uszyć? Wpisz numer (1 - Spódnica z koła, 2 - Spódnica z połowy koła, 3 - Spódnica z klinów): ")
+        wybor = st.text_input("Wybierz rodzaj spódnicy:").strip()
+        
+        if wybor in ["1", "2", "3"]:
+            st.session_state.wybor = wybor  # Zapamiętujemy wybór w sesji, żeby nie powtarzać pytania
+
+    # W zależności od wyboru, zadawaj kolejne pytania
+    if st.session_state.wybor is not None:
         type_writer_effect("Podaj obwód talii (cm): ")
         obwod_talii = safe_float_input("Talia:")
         
@@ -78,8 +85,8 @@ def main():
             return
         
         # Spódnica z koła lub połowy koła
-        if wybor in ["1", "2"]:
-            podzial = 1 if wybor == "1" else 0.5
+        if st.session_state.wybor in ["1", "2"]:
+            podzial = 1 if st.session_state.wybor == "1" else 0.5
             promien_talii = oblicz_promien_talii(obwod_talii, podzial)
             promien_calosci = oblicz_promien_calosci(promien_talii, dlugosc)
             
@@ -87,7 +94,7 @@ def main():
             type_writer_effect(f"Promień spódnicy: {promien_calosci:.2f} cm\n")
         
         # Spódnica z klinów
-        elif wybor == "3":
+        elif st.session_state.wybor == "3":
             type_writer_effect("Podaj obwód bioder (cm): ")
             obwod_bioder = safe_float_input("Biodra:")
             if obwod_bioder is None:
@@ -120,6 +127,7 @@ def main():
         )
         
         if st.button("Oblicz inną spódnicę"):
+            st.session_state.wybor = None  # Resetujemy wybór, aby rozpocząć od nowa
             st.experimental_rerun()
 
 if __name__ == "__main__":
