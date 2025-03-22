@@ -25,8 +25,11 @@ def set_background(image_file):
             color: #00FF00;
             white-space: pre-line;
             font-size: 18px;
-            max-width: 90%; /* Limiting width of text */
+            max-width: 80%; /* Limiting width of text to fit the background */
             word-wrap: break-word; /* Breaking long words */
+            margin: 10px auto; /* Adding margin to center the text */
+            padding: 10px; /* Padding for better appearance */
+            background-color: rgba(0, 0, 0, 0.5); /* Dark background for text */
         }}
         .stTextInput {{
             width: 75% !important;
